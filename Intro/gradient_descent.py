@@ -32,3 +32,10 @@ with tf.Session() as sess:
         sess.run(training_op)
     best_theta = theta.eval()
     print("Best Theta:", best_theta)
+
+# We don't have to implement gradient descent by hand though, we can just use TF's autodiff
+gradients = tf.gradients(mse, [theta])[0]
+
+# It gets even easier though. TF has a bunch of optimizers out of the box.
+optimizer = tf.train.GradientDescentOptimizer(learning_rate = learning_rate)
+training_op = optimizer.minimize(mse)
